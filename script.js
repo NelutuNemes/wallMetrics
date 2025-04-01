@@ -18,13 +18,18 @@ let displayResult = document.getElementById("display-result");
 let totalAreaTitle = document.getElementById("total-area-title");
 let totalAreaValue = document.getElementById("total-area-value");
 
+let correctionField = document.getElementById("correction-field");
+
 displayResult.classList.add("isHidden");
 
 let records = [];
 log(`Start list of records is: "\n" ${JSON.stringify(records)} `);
+let grandTotalArea;
+
 
 
 addBtn.addEventListener("click", addRecord);
+correctionField.addEventListener("input", applyCorrection);
 
 
 
@@ -87,11 +92,11 @@ function updateUI() {
         
         let deleteRecordBtn = document.createElement("button");
         deleteRecordBtn.setAttribute("id", "deleteRecordBtn");
-        deleteRecordBtn.innerText = "Delete";
+        deleteRecordBtn.innerText = "Sterge";
         deleteRecordBtn.addEventListener("click", () => deleteRecord(record.id));
 
         let duplicateBtn = document.createElement("button");
-        duplicateBtn.innerText = "Duplicate";
+        duplicateBtn.innerText = "Duplica";
         duplicateBtn.setAttribute("id","duplicateBtn" );
         duplicateBtn.addEventListener("click", () => duplicateRecord(record.id));
 
@@ -142,7 +147,7 @@ function duplicateRecord(recordId) {
 
 function totalArea() {
     displayResult.classList.remove("isHidden");
-    let grandTotalArea = 0;
+    grandTotalArea = 0;
 
     records.forEach((record) => {
         let currentArea = record.itemArea;
@@ -151,5 +156,28 @@ function totalArea() {
     });
     totalAreaTitle.textContent = `Suprafata totala:`;
     totalAreaValue.textContent =`${grandTotalArea.toFixed(2)}  m\u00B2`
+}
+
+function applyCorrection() {
+    let correctionValue = Number(correctionField.value.trim());
+
+    if (isNaN(correctionValue)) {
+        alert("Introduceți un număr valid!");
+    setTimeout(() => {
+        correctionField.value = "";
+    }, 1500);
+    return;
+}
+    log(`Correction value is: ${correctionValue}`);
+    if (grandTotalArea >= correctionValue) {
+        grandTotalArea = grandTotalArea - correctionValue;
+        log(`New grandTotalArea value is : ${grandTotalArea}`);
+    }
+    
+    totalAreaValue.textContent = `${grandTotalArea.toFixed(2)}  m\u00B2`;
+    setTimeout(() => {
+        correctionField.value = "";
+    }, 1500);
+    updateUI();
 }
 

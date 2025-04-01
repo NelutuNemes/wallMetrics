@@ -103,9 +103,23 @@ ul{
     border:1px solid whitesmoke;
     padding: 1rem;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     border-radius: 7px;
+    gap: 1rem;
+}
+#area-block, #correction-block{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid white;
+    border-radius: 7px;
+    width: 12rem;
+    height: 4rem;
+    padding: 0.2rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+
 }
 
 
