@@ -20,17 +20,105 @@ let totalAreaValue = document.getElementById("total-area-value");
 
 let correctionField = document.getElementById("correction-field");
 
-displayResult.classList.add("isHidden");
+const materialSelect = document.getElementById("material-select");
+const thicknessSelect = document.getElementById("thickness-select");
+const calculateBtn = document.getElementById("calculate-bricks-btn");
+const resetBtn = document.getElementById("reset-btn");
+const brickResultBody = document.getElementById("brick-result-text");
 
+displayResult.classList.add("isHidden");
 let records = [];
 log(`Start list of records is: "\n" ${JSON.stringify(records)} `);
 let grandTotalArea;
+
+const materials = {
+    "Caramida": [24, 29, 12],
+    "BCA": [10, 15, 20, 25, 30]
+};
+
+function populateMaterials() {
+    materialSelect.innerHTML = '<option value=""></option>';
+    Object.keys(materials).forEach(material => {
+        let option = document.createElement("option");
+        option.value = material;
+        option.textContent = material;
+        materialSelect.appendChild(option);
+    });
+}
+
+function updateThicknessOptions() {
+    let selectedMaterial = materialSelect.value;
+    thicknessSelect.innerHTML = '<option value="">-- Selectează --</option>';
+    if (selectedMaterial) {
+        materials[selectedMaterial].forEach(thickness => {
+            let option = document.createElement("option");
+            option.value = thickness;
+            option.textContent = `${thickness} cm`;
+            thicknessSelect.appendChild(option);
+        });
+    }
+}
+
+function checkFormCompletion() {
+    calculateBtn.disabled = !(materialSelect.value && thicknessSelect.value && grandTotalArea > 0);
+}
+
+function calculateBricks() {
+    let thickness = parseFloat(thicknessSelect.value);
+    let volume = grandTotalArea * (thickness / 100);
+
+    let brickData = {
+        "Caramida": {
+            24: { size: "24x29x19", volume: 24 * 29 * 19 / 1000000 },
+            29: { size: "24x29x19", volume: 24 * 29 * 19 / 1000000 },
+            12: { size: "48x12x19", volume: 48 * 12 * 19 / 1000000 }
+        },
+        "BCA": {
+            10: { size: "10x25x62.4", volume: 10 * 25 * 62.4 / 1000000 },
+            15: { size: "15x25x62.4", volume: 15 * 25 * 62.4 / 1000000 },
+            20: { size: "20x25x62.4", volume: 20 * 25 * 62.4 / 1000000 },
+            25: { size: "25x25x62.4", volume: 25 * 25 * 62.4 / 1000000 },
+            30: { size: "30x25x62.4", volume: 30 * 25 * 62.4 / 1000000 }
+        }
+    };
+
+    let selectedMaterial = materialSelect.value;
+    
+    // Verifică dacă grosimea selectată există pentru materialul ales
+    if (brickData[selectedMaterial] && brickData[selectedMaterial][thickness]) {
+        let brick = brickData[selectedMaterial][thickness];
+        let numarBucati = Math.ceil(volume / brick.volume);
+
+        document.getElementById("brick-result-text").textContent = 
+            `Material: ${selectedMaterial}\nDimensiune ${brick.size}: ${numarBucati} bucăți`;
+    } else {
+        document.getElementById("brick-result-text").textContent = 
+            "Nu există dimensiunea corespunzătoare pentru această grosime!";
+    }
+}
+
+
+function resetAll() {
+    records = [];
+    grandTotalArea = 0;
+    widthInput.value = "";
+    heightInput.value = "";
+    correctionField.value = "";
+    materialSelect.value = "";
+    thicknessSelect.innerHTML = "<option value=''>-- Selectează --</option>";
+    brickResultBody.innerHTML = "";
+    updateUI();
+    totalArea();
+}
 
 
 
 addBtn.addEventListener("click", addRecord);
 correctionField.addEventListener("input", applyCorrection);
-
+calculateBtn.addEventListener("click", calculateBricks);
+resetBtn.addEventListener("click", resetAll);
+materialSelect.addEventListener("change", updateThicknessOptions);
+populateMaterials();
 
 
 function addRecord() {
