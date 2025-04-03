@@ -65,37 +65,45 @@ function checkFormCompletion() {
 
 function calculateBricks() {
     let thickness = parseFloat(thicknessSelect.value);
+    log(`Current Thickness is :${thickness}`);
     let volume = grandTotalArea * (thickness / 100);
+    log(`Total Volume is:${volume}`);
 
     let brickData = {
         "Caramida": {
-            24: { size: "24x29x19", volume: 24 * 29 * 19 / 1000000 },
-            29: { size: "24x29x19", volume: 24 * 29 * 19 / 1000000 },
-            12: { size: "48x12x19", volume: 48 * 12 * 19 / 1000000 }
+            24: { size: "24x29x19", volume: (24 * 29 * 19) / 1000000, perPallet: 80 },
+            29: { size: "24x29x19", volume: (24 * 29 * 19) / 1000000, perPallet: 80 },
+            12: { size: "48x12x19", volume: (48 * 12 * 19) / 1000000, perPallet: 100 }
         },
         "BCA": {
-            10: { size: "10x25x62.4", volume: 10 * 25 * 62.4 / 1000000 },
-            15: { size: "15x25x62.4", volume: 15 * 25 * 62.4 / 1000000 },
-            20: { size: "20x25x62.4", volume: 20 * 25 * 62.4 / 1000000 },
-            25: { size: "25x25x62.4", volume: 25 * 25 * 62.4 / 1000000 },
-            30: { size: "30x25x62.4", volume: 30 * 25 * 62.4 / 1000000 }
+            10: { size: "10x25x62.4", volume: 0.10 * 0.25 * 0.624, perPallet: 112 },
+            15: { size: "15x25x62.4", volume: 0.15 * 0.25 * 0.624, perPallet: 72 },
+            20: { size: "25x20x62.4", volume: 0.20 * 0.25 * 0.624, perPallet: 56 },
+            25: { size: "20x25x62.4", volume: 0.25 * 0.20 * 0.624, perPallet: 56 },
+            30: { size: "30x25x62.4", volume: 0.30 * 0.25 * 0.624, perPallet: 40 }
         }
     };
 
     let selectedMaterial = materialSelect.value;
-    
-    // Verifică dacă grosimea selectată există pentru materialul ales
+
     if (brickData[selectedMaterial] && brickData[selectedMaterial][thickness]) {
         let brick = brickData[selectedMaterial][thickness];
+        log(`current brick volume: ${brick.volume}`);
         let numarBucati = Math.ceil(volume / brick.volume);
+        log(`Nr bucati is :${numarBucati}`)
+        let piecesPerPallet = Math.ceil(numarBucati / brick.perPallet);
 
-        document.getElementById("brick-result-text").textContent = 
-            `Material: ${selectedMaterial}\nDimensiune ${brick.size}: ${numarBucati} bucăți`;
+        document.getElementById("brick-result-text").innerHTML = 
+            `Material ales: ${selectedMaterial}<br>
+             Dimensiune piesa: ${brick.size}<br>
+             Cantitate necesara: ${numarBucati}  (${(numarBucati * brick.volume).toFixed(2)} mc)<br>
+             Număr de paleți: ${piecesPerPallet}`;
     } else {
         document.getElementById("brick-result-text").textContent = 
             "Nu există dimensiunea corespunzătoare pentru această grosime!";
     }
 }
+
 
 
 function resetAll() {
