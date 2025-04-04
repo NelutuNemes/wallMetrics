@@ -26,10 +26,27 @@ const calculateBtn = document.getElementById("calculate-bricks-btn");
 const resetBtn = document.getElementById("reset-btn");
 const brickResultBody = document.getElementById("brick-result-text");
 
+const palletPrice = document.getElementById("pallet-price");
+const unitPrice = document.getElementById("unit-price");
+const palleteWarrant = document.getElementById("pallete-warrant");
+
+const calculateBricksBtn = document.getElementById("calculate-bricks-btn");
+const calculatePriceBtn = document.getElementById("calculate-price-btn");
+const priceResultBody = document.getElementById("price-result-text");
+
+
+
+
+
+
 displayResult.classList.add("isHidden");
+
 let records = [];
 log(`Start list of records is: "\n" ${JSON.stringify(records)} `);
 let grandTotalArea;
+let piecesPerPallet;
+let piecesExtraPallet;
+let totalNumberOfPallets;
 
 const materials = {
     "Caramida": [24, 29, 12],
@@ -91,13 +108,22 @@ function calculateBricks() {
         log(`current brick volume: ${brick.volume}`);
         let numarBucati = Math.ceil(volume / brick.volume);
         log(`Nr bucati is :${numarBucati}`)
-        let piecesPerPallet = Math.ceil(numarBucati / brick.perPallet);
+        piecesPerPallet = Math.floor(numarBucati / brick.perPallet);
+        piecesExtraPallet = numarBucati % brick.perPallet;
+        log(`Numar bucati extrapalet: ${piecesExtraPallet}`);
+
+        if (piecesExtraPallet > 0) {
+            totalNumberOfPallets = piecesPerPallet + 1;
+        }
 
         document.getElementById("brick-result-text").innerHTML = 
-            `Material ales: ${selectedMaterial}<br>
-             Dimensiune piesa: ${brick.size}<br>
-             Cantitate necesara: ${numarBucati}  (${(numarBucati * brick.volume).toFixed(2)} mc)<br>
-             Număr de paleți: ${piecesPerPallet}`;
+            `Material ales : ${selectedMaterial}<br>
+             Dimensiune piesa : ${brick.size}<br>
+             Cantitate necesara : ${numarBucati} buc.  (${(numarBucati * brick.volume).toFixed(2)} mc)<br>
+             Număr de paleți intregi : ${piecesPerPallet} pal. <br>
+             Numar de bucati extrapalet : ${piecesExtraPallet} buc.<br>
+             Numar total paleti : ${ totalNumberOfPallets }.
+             `;
     } else {
         document.getElementById("brick-result-text").textContent = 
             "Nu există dimensiunea corespunzătoare pentru această grosime!";
@@ -127,6 +153,7 @@ calculateBtn.addEventListener("click", calculateBricks);
 resetBtn.addEventListener("click", resetAll);
 materialSelect.addEventListener("change", updateThicknessOptions);
 populateMaterials();
+calculatePriceBtn.addEventListener("click", calculatePrice);
 
 
 function addRecord() {
@@ -276,4 +303,22 @@ function applyCorrection() {
     }, 1500);
     updateUI();
 }
+function calculatePrice() {
+    let pricePerPallet = Number(palletPrice.value.trim().replace(",", "."));
+    let pricePerUnit = Number(unitPrice.value.trim().replace(",", "."));
+    let pricePalleteWarrant = Number(palleteWarrant.value.trim().replace(",", "."));
 
+    const completePalletPrice = pricePerPallet * piecesPerPallet;
+    const unitExtraPalletPrice = pricePerUnit * piecesExtraPallet;
+    const palleteWarrantValue = pricePalleteWarrant * totalNumberOfPallets;
+    const unifiedPrice = completePalletPrice + unitExtraPalletPrice;
+    const totalPrice = unifiedPrice + palleteWarrantValue
+
+            priceResultBody.innerHTML = 
+            `Pret paleti intregi : ${completePalletPrice.toFixed(2)} RON <br>
+             Pret unitati extra palet : ${unitExtraPalletPrice.toFixed(2)} RON <br>
+             Pret garantie paleti : ${palleteWarrantValue.toFixed(2)} RON.<br>
+             Pret material : ${unifiedPrice.toFixed(2)};<br>
+             Pret total (material + garantie paleti) : ${totalPrice.toFixed(2)};
+             `;
+}

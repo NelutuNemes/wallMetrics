@@ -65,7 +65,17 @@ ul{
     margin: auto;
     min-width: 75vw;
     max-width: 80vw;
+    margin-bottom: 0.5rem;
 
+}
+#records-list{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    align-content: center;
+    margin: auto;
 }
 li{
     max-width: 75vw;
@@ -78,9 +88,10 @@ li{
     border: 1px solid whitesmoke;
     border-radius: 7px;
     padding: 0.2rem;
-    width: 75vw;
+    width: 100%;
     margin-bottom: 0.3rem;
     font-size: 0.6rem;
+
 }
 #add-btn{
     border:1px solid transparent;
@@ -123,7 +134,7 @@ li{
     border-radius: 7px;
     gap: 0.5rem;
     min-width: 60vw;
-    max-width: 80vw;
+    max-width: 74vw;
 }
 #area-block, #correction-block{
     display: flex;
@@ -138,7 +149,7 @@ li{
     gap: 0.5rem;
 
 }
-.material-selection{
+.material-selection {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -157,8 +168,8 @@ li{
     gap: 1rem;
     border: 1px solid white;
     padding: 0.5rem;
-    min-width: 60vw;
-    max-width: 80vw;
+    min-width: 58vw;
+    max-width: 70vw;
     border-radius: 7px;
 }
 h5{
@@ -168,14 +179,39 @@ option{
     text-align: center;
     width: fit-content;
 }
-#brick-result-text{
-    border: 1px solid white;
+#brick-result-text,#price-result-text{
+    border: 1px solid lightgreen;
     padding: 0.5rem;
     border-radius: 7px;
     min-width: 60vw;
     max-width: 80vw;
 
 }
+.price-block{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border: 1px solid white;
+    border-radius: 7px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    align-items: center;
+    padding: 1rem;
+    min-width: 58vw;
+    max-width: 70vw;
+}
+#calculate-bricks-btn, #calculate-price-btn{
+    max-width: 12rem;
+    border-color: transparent;
+    border-radius:9px ;
+    margin: auto;
+    cursor: pointer;
+}
+#calculate-bricks-btn:hover, #calculate-price-btn:hover{
+background-color: rgb(106, 101, 101);
+color: white;
+}
+
 
 
 

@@ -57,13 +57,23 @@
                 <select id="thickness-select">
                     <option value="">-- Alege grosimea zidăriei (cm) --</option>
                 </select>  
-                
+                <button id="calculate-bricks-btn">Calculează numărul de bucăți</button>
+
             </div>
         
             
-            <button id="calculate-bricks-btn">Calculează numărul de bucăți</button>
             
             <p id="brick-result-text"></p>
+
+            <div class="price-block">
+                <h5>Calcul pret</h5>
+                <input type="text" id="pallet-price" placeholder="seteaza pret palet">
+                <input type="text" id="unit-price" placeholder="seteaza pret per bucata">
+                <input type="text" id="pallete-warrant" placeholder="seteaza pret garantie palet">
+                <button id="calculate-price-btn">Calculeaza pret</button>
+            </div>
+            <p id="price-result-text"></p>
+
 
         </div>
         <button id="reset-btn">RESET</button>
