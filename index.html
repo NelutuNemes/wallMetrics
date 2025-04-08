@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 ,maximum-scale=1">
     <title>wallMetrics</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -17,13 +17,13 @@
         <div class="input-block">
             <p for="user-input">Introduceti inaltimea peretelui:</p>
             <div class="height-element">
-                <input type="text" id="height-input" placeholder="e.g. 2.20">
+                <input type="text" id="height-input" placeholder="e.g. 2.20 " inputmode="decimal"  pattern="[0-9]+(\.[0-9]+)?">
                 <p>m.</p>
             </div>
 
             <p for="user-input">Introduceti lungimea peretelui:</p>
             <div class="width-element">
-                <input type="text" id="width-input" placeholder="e.g. 5.00">
+                <input type="text" id="width-input" placeholder="e.g. 5.00" inputmode="decimal"  pattern="[0-9]+(\.[0-9]+)?">
                 <p>m.</p>
             </div>
             
@@ -39,7 +39,7 @@
                 </div>
                 <div id="correction-block">
                     <label for="correction-field">Aplicati corectii:</label>
-                    <input type="text" id="correction-field" placeholder="e.g. 2m&sup2; pentru o usa">
+                    <input type="text" id="correction-field" placeholder="e.g. 2m&sup2; pentru o usa" inputmode="decimal"  pattern="[0-9]+(\.[0-9]+)?">
                 </div>
             </div>
         </div>
