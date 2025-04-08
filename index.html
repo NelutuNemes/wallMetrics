@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <div class="material-selection">
+        <div class="material-selection" id="material-selection" >
             <h5>Calcul Material</h5>
             <div id="material-thickness">
 
@@ -55,7 +55,7 @@
 
                 <label for="thickness-select">Alege grosimea zidăriei (cm):</label>
                 <select id="thickness-select">
-                    <option value="">-- Alege grosimea zidăriei (cm) --</option>
+                    <option value="">-- Selectează --</option>
                 </select>  
                 <button id="calculate-bricks-btn">Calculează numărul de bucăți</button>
 
@@ -65,14 +65,19 @@
             
             <p id="brick-result-text"></p>
 
-            <div class="price-block">
+            <div class="price-block" id="price-block">
                 <h5>Calcul pret</h5>
-                <input type="text" id="pallet-price" placeholder="seteaza pret palet">
-                <input type="text" id="unit-price" placeholder="seteaza pret per bucata">
-                <input type="text" id="pallete-warrant" placeholder="seteaza pret garantie palet">
+                <input type="text" id="pallet-price" placeholder="seteaza pret palet" inputmode="decimal"  pattern="[0-9]+(\.[0-9]+)?">
+                <p class="p-end-label">RON/Palet</p>
+                <input type="text" id="unit-price" placeholder="seteaza pret per bucata" inputmode="decimal"  pattern="[0-9]+(\.[0-9]+)?">
+                <p class="p-end-label">RON/Buc</p>
+                <input type="text" id="pallete-warrant" placeholder="seteaza pret garantie palet" inputmode="decimal"  pattern="[0-9]+(\.[0-9]+)?">
+                <p class="p-end-label">RON/Palet</p>
                 <button id="calculate-price-btn">Calculeaza pret</button>
+
+                            <p id="price-result-text"></p>
+
             </div>
-            <p id="price-result-text"></p>
 
 
         </div>

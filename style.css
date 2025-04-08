@@ -56,7 +56,7 @@ header {
 input{
     text-align: center;
     margin-right: 0.5rem;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
     border-radius: 7px;
     border: transparent;
 }
@@ -232,6 +232,11 @@ option{
 background-color: rgb(106, 101, 101);
 color: white;
 }
+.p-end-label{
+    margin: 0;
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+}
 
 
 
@@ -265,4 +270,5 @@ footer{
 }
 .isHidden{
     visibility: hidden;
+    display: none;
 }

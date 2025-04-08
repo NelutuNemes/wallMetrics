@@ -15,8 +15,10 @@ let addBtn = document.getElementById("add-btn");
 let recordsList = document.getElementById("records-list");
 
 let displayResult = document.getElementById("display-result");
+let materialSelection = document.getElementById("material-selection")
 let totalAreaTitle = document.getElementById("total-area-title");
 let totalAreaValue = document.getElementById("total-area-value");
+let priceBlock = document.getElementById("price-block");
 
 let correctionField = document.getElementById("correction-field");
 
@@ -40,6 +42,8 @@ const priceResultBody = document.getElementById("price-result-text");
 
 
 displayResult.classList.add("isHidden");
+materialSelection.classList.add("isHidden");
+priceBlock.classList.add("isHidden");
 
 let records = [];
 log(`Start list of records is: "\n" ${JSON.stringify(records)} `);
@@ -54,7 +58,7 @@ const materials = {
 };
 
 function populateMaterials() {
-    materialSelect.innerHTML = '<option value=""></option>';
+    materialSelect.innerHTML =  '<option value="">-- Selectează --</option>';
     Object.keys(materials).forEach(material => {
         let option = document.createElement("option");
         option.value = material;
@@ -124,26 +128,14 @@ function calculateBricks() {
              Numar de bucati extrapalet : ${piecesExtraPallet} buc.<br>
              Numar total paleti : ${ totalNumberOfPallets }.
              `;
+        
+            priceBlock.classList.remove("isHidden");
     } else {
         document.getElementById("brick-result-text").textContent = 
             "Nu există dimensiunea corespunzătoare pentru această grosime!";
     }
 }
 
-
-
-function resetAll() {
-    records = [];
-    grandTotalArea = 0;
-    widthInput.value = "";
-    heightInput.value = "";
-    correctionField.value = "";
-    materialSelect.value = "";
-    thicknessSelect.innerHTML = "<option value=''>-- Selectează --</option>";
-    brickResultBody.innerHTML = "";
-    updateUI();
-    totalArea();
-}
 
 
 
@@ -211,7 +203,7 @@ function updateUI() {
 
         let areaValue = document.createElement("p");
         areaValue.setAttribute("id", "areaValue");
-        areaValue.innerText = `Suprafata: ${record.itemArea}m²`;
+        areaValue.innerText = `Aria: ${(record.itemArea.toFixed(2))}m²`;
         
         let deleteRecordBtn = document.createElement("button");
         deleteRecordBtn.setAttribute("id", "deleteRecordBtn");
@@ -270,6 +262,7 @@ function duplicateRecord(recordId) {
 
 function totalArea() {
     displayResult.classList.remove("isHidden");
+    materialSelection.classList.remove("isHidden");
     grandTotalArea = 0;
 
     records.forEach((record) => {
@@ -277,7 +270,7 @@ function totalArea() {
         grandTotalArea += currentArea;
         log(`Current grandTotalArea is: ${grandTotalArea}`);
     });
-    totalAreaTitle.textContent = `Suprafata totala:`;
+    totalAreaTitle.textContent = `Aria totala:`;
     totalAreaValue.textContent =`${grandTotalArea.toFixed(2)}  m\u00B2`
 }
 
@@ -321,4 +314,25 @@ function calculatePrice() {
              Pret material : ${unifiedPrice.toFixed(2)};<br>
              Pret total (material + garantie paleti) : ${totalPrice.toFixed(2)};
              `;
+}
+
+function resetAll() {
+    records = [];
+    grandTotalArea = 0;
+    widthInput.value = "";
+    heightInput.value = "";
+    correctionField.value = "";
+    materialSelect.value = "";
+    thicknessSelect.innerHTML = "<option value=''>-- Selectează --</option>";
+    brickResultBody.innerHTML = "";
+    updateUI();
+    totalArea();
+    displayResult.classList.add("isHidden");
+    materialSelection.classList.add("isHidden");
+    priceBlock.classList.add("isHidden");
+    palletPrice.value = "";
+    unitPrice.value = "";
+    palleteWarrant.value = "";
+    priceResultBody.innerHTML = ``;
+
 }
