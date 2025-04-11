@@ -114,7 +114,7 @@ ul{
     padding: 0.3rem;
     border-radius: 7px;
     /* margin-top: 0.5rem; */
-    margin-bottom: 0.6rem;
+    /* margin-bottom: 0.6rem; */
 
 }
 #add-btn:hover{
@@ -223,10 +223,14 @@ option{
 }
 #calculate-bricks-btn, #calculate-price-btn{
     max-width: 12rem;
+    min-height: 1.5rem;
     border-color: transparent;
     border-radius:9px ;
     margin: auto;
     cursor: pointer;
+    padding: 0.3rem;
+    font-size: 0.7rem;
+
 }
 #calculate-bricks-btn:hover, #calculate-price-btn:hover{
 background-color: rgb(106, 101, 101);
@@ -236,6 +240,16 @@ color: white;
     margin: 0;
     font-size: 0.7rem;
     margin-bottom: 0.5rem;
+}
+#reset-btn{
+    border-radius: 7px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+#reset-btn:hover{
+    border: 1px solid red;
+    color: red;
+
 }
 
 

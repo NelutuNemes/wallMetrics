@@ -1,3 +1,4 @@
+//Debug tool
 let debug = true;
 let log = (message) => {
     if (debug) {
@@ -9,6 +10,7 @@ let log = (message) => {
 }
 log(`Debug is active !`);
 
+//Reference to the DOM elements
 const heightInput = document.getElementById("height-input");
 const widthInput = document.getElementById("width-input");
 let addBtn = document.getElementById("add-btn");
@@ -19,7 +21,6 @@ let materialSelection = document.getElementById("material-selection")
 let totalAreaTitle = document.getElementById("total-area-title");
 let totalAreaValue = document.getElementById("total-area-value");
 let priceBlock = document.getElementById("price-block");
-
 let correctionField = document.getElementById("correction-field");
 
 const materialSelect = document.getElementById("material-select");
@@ -31,20 +32,19 @@ const brickResultBody = document.getElementById("brick-result-text");
 const palletPrice = document.getElementById("pallet-price");
 const unitPrice = document.getElementById("unit-price");
 const palleteWarrant = document.getElementById("pallete-warrant");
-
 const calculateBricksBtn = document.getElementById("calculate-bricks-btn");
 const calculatePriceBtn = document.getElementById("calculate-price-btn");
 const priceResultBody = document.getElementById("price-result-text");
 
 
+//initial UI state
+// displayResult.classList.add("isHidden");
+// materialSelection.classList.add("isHidden");
+// priceBlock.classList.add("isHidden");
 
+[displayResult, materialSelection, priceBlock].forEach(el => el.classList.add("isHidden"));
 
-
-
-displayResult.classList.add("isHidden");
-materialSelection.classList.add("isHidden");
-priceBlock.classList.add("isHidden");
-
+//global variables
 let records = [];
 log(`Start list of records is: "\n" ${JSON.stringify(records)} `);
 let grandTotalArea;
@@ -52,10 +52,28 @@ let piecesPerPallet;
 let piecesExtraPallet;
 let totalNumberOfPallets;
 
+
+//objects for materials and units thickness
 const materials = {
     "Caramida": [24, 29, 12],
     "BCA": [10, 15, 20, 25, 30]
 };
+
+    let brickData = {
+        "Caramida": {
+            24: { size: "24x29x19", volume: 0.24 * 0.29 * 0.19, perPallet: 80 },
+            29: { size: "24x29x19", volume: 0.24 * 0.29 * 0.19, perPallet: 80 },
+            12: { size: "48x12x19", volume: 0.48 * 0.12 * 0.19, perPallet: 100 }
+        },
+        "BCA": {
+            10: { size: "10x25x62.4", volume: 0.10 * 0.25 * 0.624, perPallet: 112 },
+            15: { size: "15x25x62.4", volume: 0.15 * 0.25 * 0.624, perPallet: 72 },
+            20: { size: "25x20x62.4", volume: 0.20 * 0.25 * 0.624, perPallet: 56 },
+            25: { size: "20x25x62.4", volume: 0.25 * 0.20 * 0.624, perPallet: 56 },
+            30: { size: "30x25x62.4", volume: 0.30 * 0.25 * 0.624, perPallet: 40 }
+        }
+    };
+
 
 function populateMaterials() {
     materialSelect.innerHTML =  '<option value="">-- Selectează --</option>';
@@ -80,9 +98,6 @@ function updateThicknessOptions() {
     }
 }
 
-function checkFormCompletion() {
-    calculateBtn.disabled = !(materialSelect.value && thicknessSelect.value && grandTotalArea > 0);
-}
 
 function calculateBricks() {
     let thickness = parseFloat(thicknessSelect.value);
@@ -90,20 +105,6 @@ function calculateBricks() {
     let volume = grandTotalArea * (thickness / 100);
     log(`Total Volume is:${volume}`);
 
-    let brickData = {
-        "Caramida": {
-            24: { size: "24x29x19", volume: (24 * 29 * 19) / 1000000, perPallet: 80 },
-            29: { size: "24x29x19", volume: (24 * 29 * 19) / 1000000, perPallet: 80 },
-            12: { size: "48x12x19", volume: (48 * 12 * 19) / 1000000, perPallet: 100 }
-        },
-        "BCA": {
-            10: { size: "10x25x62.4", volume: 0.10 * 0.25 * 0.624, perPallet: 112 },
-            15: { size: "15x25x62.4", volume: 0.15 * 0.25 * 0.624, perPallet: 72 },
-            20: { size: "25x20x62.4", volume: 0.20 * 0.25 * 0.624, perPallet: 56 },
-            25: { size: "20x25x62.4", volume: 0.25 * 0.20 * 0.624, perPallet: 56 },
-            30: { size: "30x25x62.4", volume: 0.30 * 0.25 * 0.624, perPallet: 40 }
-        }
-    };
 
     let selectedMaterial = materialSelect.value;
 
@@ -139,13 +140,7 @@ function calculateBricks() {
 
 
 
-addBtn.addEventListener("click", addRecord);
-correctionField.addEventListener("input", applyCorrection);
-calculateBtn.addEventListener("click", calculateBricks);
-resetBtn.addEventListener("click", resetAll);
-materialSelect.addEventListener("change", updateThicknessOptions);
-populateMaterials();
-calculatePriceBtn.addEventListener("click", calculatePrice);
+
 
 
 function addRecord() {
@@ -336,3 +331,29 @@ function resetAll() {
     priceResultBody.innerHTML = ``;
 
 }
+
+function cleaResultFields() {
+    palletPrice.value = "";
+    unitPrice.value = "";
+    palleteWarrant.value = "";
+    brickResultBody.innerHTML = "";
+    priceResultBody.innerHTML = ``;   
+}
+
+
+
+//Event listeners
+addBtn.addEventListener("click", addRecord);
+correctionField.addEventListener("input", applyCorrection);
+calculateBtn.addEventListener("click", calculateBricks);
+resetBtn.addEventListener("click", resetAll);
+materialSelect.addEventListener("change", () => {
+    updateThicknessOptions();
+    cleaResultFields();
+}
+);
+thicknessSelect.addEventListener("change", cleaResultFields);
+calculatePriceBtn.addEventListener("click", calculatePrice);
+
+//Init
+populateMaterials();
