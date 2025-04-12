@@ -234,7 +234,7 @@ function deleteRecord(recordId) {
     totalArea();
     updateUI();
     log(`Current list of records, after delete record is: "\n" ${JSON.stringify(records)} `);
-
+    cleaResultFields();
 };
 
 function duplicateRecord(recordId) {
@@ -251,7 +251,7 @@ function duplicateRecord(recordId) {
         updateUI();
         log(`Is a duplicate of record ${recordId}`);
         log(`Current list of records, after duplicate record is: "\n" ${JSON.stringify(records)} `);
-
+        cleaResultFields();
     }
 }
 
@@ -289,6 +289,7 @@ function applyCorrection() {
     setTimeout(() => {
         correctionField.value = "";
     }, 1500);
+    cleaResultFields();
     updateUI();
 }
 function calculatePrice() {

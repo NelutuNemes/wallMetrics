@@ -45,33 +45,37 @@
         </div>
 
         <div class="material-selection" id="material-selection" >
-            <h5>Calcul Material</h5>
-            <div id="material-thickness">
+            <div class="material-claculation-block" id="material-claculation-block">
+                <h5>Calcul Material</h5>
+                <div id="material-thickness">
 
-                <label for="material-select">Alege materialul:</label>
-                <select id="material-select">
+                    <label for="material-select">Alege materialul:</label>
+                    <select id="material-select">
                     <option value="">-- Selectează --</option>
-                </select>
+                    </select>
 
-                <label for="thickness-select">Alege grosimea zidăriei (cm):</label>
-                <select id="thickness-select">
+                    <label for="thickness-select">Alege grosimea zidăriei (cm):</label>
+                    <select id="thickness-select">
                     <option value="">-- Selectează --</option>
-                </select>  
-                <button id="calculate-bricks-btn">Calculează material</button>
+                    </select>  
+                    <button id="calculate-bricks-btn">Calculează material</button>
 
+                </div>
+
+                <p id="brick-result-text"></p>
             </div>
-        
-            
-            
-            <p id="brick-result-text"></p>
+
 
             <div class="price-block" id="price-block">
                 <h5>Calcul pret</h5>
-                <input type="text" id="pallet-price" placeholder="seteaza pret palet" inputmode="decimal"  pattern="[0-9]+(\.[0-9]+)?">
+                <label for="pallet-price">Seteaza pret per palet :</label>
+                <input type="text" id="pallet-price" placeholder="e.g. 480" inputmode="decimal"  pattern="[0-9]+(\.[0-9]+)?">
                 <p class="p-end-label">RON/Palet</p>
-                <input type="text" id="unit-price" placeholder="seteaza pret per bucata" inputmode="decimal"  pattern="[0-9]+(\.[0-9]+)?">
+                <label for="unit-price">Seteaza pret per bucata :</label>
+                <input type="text" id="unit-price" placeholder="e.g. 6 " inputmode="decimal"  pattern="[0-9]+(\.[0-9]+)?">
                 <p class="p-end-label">RON/Buc</p>
-                <input type="text" id="pallete-warrant" placeholder="seteaza pret garantie palet" inputmode="decimal"  pattern="[0-9]+(\.[0-9]+)?">
+                <label for="pallete-warrant">Seteaza pret garantie palet :</label>
+                <input type="text" id="pallete-warrant" placeholder="e.g. 100 " inputmode="decimal"  pattern="[0-9]+(\.[0-9]+)?">
                 <p class="p-end-label">RON/Palet</p>
                 <button id="calculate-price-btn">Calculeaza pret</button>
 

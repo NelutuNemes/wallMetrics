@@ -60,6 +60,11 @@ input{
     border-radius: 7px;
     border: transparent;
 }
+#height-input, #width-input{
+    text-align: center;
+    color: black;
+    border: 1px solid transparent;
+}
 p{
     margin: 0;
 }
@@ -183,13 +188,19 @@ ul{
     min-width: 65vw;
     max-width: 80vw;
 }
+#material-select, #thickness-select{
+    min-width: 8rem;
+    max-width: 10rem;
+    display: flex;
+    margin: auto;
+}
 #material-thickness{
     display: flex;
     flex-direction: column;
     gap: 1rem;
     border: 1px solid white;
     padding: 0.5rem;
-    min-width: 58vw;
+    min-width: 70vw;
     max-width: 70vw;
     border-radius: 7px;
 }
@@ -204,11 +215,11 @@ option{
     border: 1px solid lightgreen;
     padding: 0.5rem;
     border-radius: 7px;
-    min-width: 60vw;
+    min-width: 70vw;
     max-width: 80vw;
 
 }
-.price-block{
+.price-block, .material-claculation-block{
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -218,8 +229,12 @@ option{
     margin-bottom: 0.5rem;
     align-items: center;
     padding: 1rem;
-    min-width: 58vw;
+    min-width: 68vw;
     max-width: 70vw;
+}
+.price-block>label{
+    display: flex;
+    align-self: flex-start;
 }
 #calculate-bricks-btn, #calculate-price-btn{
     max-width: 12rem;
@@ -229,8 +244,9 @@ option{
     margin: auto;
     cursor: pointer;
     padding: 0.3rem;
-    font-size: 0.7rem;
-
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: black;
 }
 #calculate-bricks-btn:hover, #calculate-price-btn:hover{
 background-color: rgb(106, 101, 101);
@@ -264,7 +280,8 @@ footer{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    align-content: center;
+    width: 95%;
     padding: 0;
     margin: auto;
     /* word-wrap: break-word;
@@ -273,7 +290,7 @@ footer{
     /* border: 1px solid black; */
 }
 #footer-text{
-    font-size: 0.5rem;
+    font-size: 0.45rem;
     color: white;
 }
 
