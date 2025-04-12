@@ -193,6 +193,8 @@ ul{
     max-width: 10rem;
     display: flex;
     margin: auto;
+    color: black;
+
 }
 #material-thickness{
     display: flex;
@@ -290,8 +292,9 @@ footer{
     /* border: 1px solid black; */
 }
 #footer-text{
-    font-size: 0.45rem;
+    font-size: 0.7rem;
     color: white;
+    text-align: center;
 }
 
  
