@@ -23,6 +23,7 @@ header {
     padding: 0;
     margin: 0;
     /* font-family: cursive; */
+    margin-top: 2rem;
 }
 .container {
     border: 1px solid white;
@@ -264,6 +265,7 @@ color: white;
     border-radius: 7px;
     cursor: pointer;
     border: 1px solid transparent;
+    bottom: 1rem;
 }
 #reset-btn:hover{
     border: 1px solid red;

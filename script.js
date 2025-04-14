@@ -121,7 +121,7 @@ function calculateBricks() {
             totalNumberOfPallets = piecesPerPallet + 1;
         }
 
-        document.getElementById("brick-result-text").innerHTML = 
+        brickResultBody.innerHTML = 
             `Material ales : ${selectedMaterial}<br>
              Dimensiune piesa : ${brick.size}<br>
              Cantitate necesara : ${numarBucati} buc.  (${(numarBucati * brick.volume).toFixed(2)} mc)<br>
@@ -132,8 +132,11 @@ function calculateBricks() {
         
             priceBlock.classList.remove("isHidden");
     } else {
-        document.getElementById("brick-result-text").textContent = 
-            "Nu există dimensiunea corespunzătoare pentru această grosime!";
+        brickResultBody.innerHTML =
+         `<span style="color:red">
+            Te rugam selecteaza corect materialul si grosimea zidariei
+         </span>
+        `
     }
 }
 
@@ -292,25 +295,60 @@ function applyCorrection() {
     cleaResultFields();
     updateUI();
 }
+
 function calculatePrice() {
-    let pricePerPallet = Number(palletPrice.value.trim().replace(",", "."));
-    let pricePerUnit = Number(unitPrice.value.trim().replace(",", "."));
-    let pricePalleteWarrant = Number(palleteWarrant.value.trim().replace(",", "."));
 
-    const completePalletPrice = pricePerPallet * piecesPerPallet;
-    const unitExtraPalletPrice = pricePerUnit * piecesExtraPallet;
-    const palleteWarrantValue = pricePalleteWarrant * totalNumberOfPallets;
-    const unifiedPrice = completePalletPrice + unitExtraPalletPrice;
-    const totalPrice = unifiedPrice + palleteWarrantValue
+    if (!validatePriceInputs()) return;
 
-            priceResultBody.innerHTML = 
-            `Pret paleti intregi : ${completePalletPrice.toFixed(2)} RON <br>
-             Pret unitati extra palet : ${unitExtraPalletPrice.toFixed(2)} RON <br>
-             Pret garantie paleti : ${palleteWarrantValue.toFixed(2)} RON.<br>
-             Pret material : ${unifiedPrice.toFixed(2)};<br>
-             Pret total (material + garantie paleti) : ${totalPrice.toFixed(2)};
-             `;
+    const pp = parseFloat(palletPrice.value.replace(",", "."));
+    const pu = parseFloat(unitPrice.value.replace(",", "."));
+    const pw = parseFloat(palleteWarrant.value.replace(",", "."));
+
+    const fullPalletPrice = pp * piecesPerPallet;
+    const extraUnitPrice = pu * piecesExtraPallet;
+    const warranty = pw * totalNumberOfPallets;
+    const total = fullPalletPrice + extraUnitPrice + warranty;
+
+    priceResultBody.innerHTML = `
+        Pret paleti intregi: ${fullPalletPrice.toFixed(2)} RON<br>
+        Pret unități extra palet: ${extraUnitPrice.toFixed(2)} RON<br>
+        Garantii paleti: ${warranty.toFixed(2)} RON<br>
+        Total (material + garantie): ${total.toFixed(2)} RON
+    `;
 }
+
+function isStrictNumber(value) {
+    return /^-?\d+([.,]?\d+)?$/.test(value.trim());
+}
+
+function validatePriceInputs() {
+    const ppRaw = palletPrice.value.trim();
+    const puRaw = unitPrice.value.trim();
+    const pwRaw = palleteWarrant.value.trim();
+
+    const errors = [];
+
+    if (!ppRaw || !isStrictNumber(ppRaw)) {
+        errors.push("Prețul per palet trebuie să fie un număr valid (ex: 123.45).");
+    }
+
+    if (!puRaw || !isStrictNumber(puRaw)) {
+        errors.push("Prețul per unitate trebuie să fie un număr valid (ex: 5.50).");
+    }
+
+    if (!pwRaw || !isStrictNumber(pwRaw)) {
+        errors.push("Valoarea garanției pe palet trebuie să fie un număr valid (ex: 20).");
+    }
+
+    if (errors.length > 0) {
+        priceResultBody.innerHTML = `<span style="color:red">${errors.join("<br>")}</span>`;
+        return false;
+    }
+
+    return true;
+}
+
+
 
 function resetAll() {
     records = [];
