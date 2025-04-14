@@ -371,6 +371,7 @@ function resetAll() {
     priceResultBody.innerHTML = ``;
     document.body.classList.remove("withoutBackgroundImage");
     document.body.classList.add("withBackgroundImage");
+    // test
 
 
 }
