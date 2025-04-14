@@ -369,6 +369,9 @@ function resetAll() {
     unitPrice.value = "";
     palleteWarrant.value = "";
     priceResultBody.innerHTML = ``;
+    document.body.classList.remove("withoutBackgroundImage");
+    document.body.classList.add("withBackgroundImage");
+
 
 }
 
