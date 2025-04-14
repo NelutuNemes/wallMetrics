@@ -156,7 +156,7 @@ function addRecord() {
     if (isNaN(wallWidth) || isNaN(wallHeight) ||
         wallWidth <= 0 || wallHeight <= 0) {
         log("Invalid input. Please enter positive numbers.");
-        alert("Invalid input. Please enter positive numbers in all fields!");
+        alert("Valoare nevalidă. Vă rugăm să introduceți numere pozitive în ambele câmpuri!");
         return;
     }
     else {
