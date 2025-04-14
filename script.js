@@ -43,6 +43,7 @@ const priceResultBody = document.getElementById("price-result-text");
 // priceBlock.classList.add("isHidden");
 
 [displayResult, materialSelection, priceBlock].forEach(el => el.classList.add("isHidden"));
+document.body.classList.add("withBackgroundImage");
 
 //global variables
 let records = [];
@@ -393,6 +394,14 @@ materialSelect.addEventListener("change", () => {
 );
 thicknessSelect.addEventListener("change", cleaResultFields);
 calculatePriceBtn.addEventListener("click", calculatePrice);
+heightInput.addEventListener("input", () => {
+    document.body.classList.remove("withBackgroundImage");
+    document.body.classList.add("withoutBackgroundImage");
+});
+widthInput.addEventListener("input", () => {
+    document.body.classList.remove("withBackgroundImage");
+    document.body.classList.add("withoutBackgroundImage");
+});
 
 //Init
 populateMaterials();

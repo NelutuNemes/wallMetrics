@@ -24,6 +24,7 @@ header {
     margin: 0;
     /* font-family: cursive; */
     margin-top: 2rem;
+    font-weight: normal;
 }
 .container {
     border: 1px solid white;
@@ -271,6 +272,16 @@ color: white;
     border: 1px solid red;
     color: red;
 
+}
+
+.withBackgroundImage{
+    background-image: url("resources/images/bricks&aac\ wall.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.withoutBackgroundImage{
+    background: rgb(47, 45, 45);
 }
 
 
