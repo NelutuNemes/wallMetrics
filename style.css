@@ -271,6 +271,7 @@ color: white;
 #reset-btn:hover{
     border: 1px solid red;
     color: red;
+    font-weight: bolder;
 
 }
 
@@ -280,9 +281,19 @@ color: white;
     background-position: center;
     background-repeat: no-repeat;
 }
-.withoutBackgroundImage{
-    background: rgb(47, 45, 45);
-    background-image: none;
+body.withoutBackgroundImage {
+  background-color: black;
+  background-image: none;
+  animation: fadeOutBg 0.8s ease forwards;
+}
+
+@keyframes fadeOutBg {
+  0% {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  100% {
+    background-color: black;
+  }
 }
 
 
