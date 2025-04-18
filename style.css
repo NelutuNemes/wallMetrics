@@ -265,7 +265,7 @@ color: white;
 #reset-btn{
     border-radius: 7px;
     cursor: pointer;
-    border: 1px solid transparent;
+    border: 1px solid black;
     bottom: 1rem;
 }
 #reset-btn:hover{
@@ -282,6 +282,7 @@ color: white;
 }
 .withoutBackgroundImage{
     background: rgb(47, 45, 45);
+    background-image: none;
 }
 
 

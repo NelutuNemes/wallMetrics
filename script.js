@@ -42,7 +42,7 @@ const priceResultBody = document.getElementById("price-result-text");
 // materialSelection.classList.add("isHidden");
 // priceBlock.classList.add("isHidden");
 
-[displayResult, materialSelection, priceBlock].forEach(el => el.classList.add("isHidden"));
+[displayResult, materialSelection, priceBlock, resetBtn].forEach(el => el.classList.add("isHidden"));
 document.body.classList.add("withBackgroundImage");
 
 //global variables
@@ -120,6 +120,8 @@ function calculateBricks() {
 
         if (piecesExtraPallet > 0) {
             totalNumberOfPallets = piecesPerPallet + 1;
+        } else {
+            totalNumberOfPallets = piecesPerPallet;
         }
 
         brickResultBody.innerHTML = 
@@ -238,7 +240,7 @@ function deleteRecord(recordId) {
     totalArea();
     updateUI();
     log(`Current list of records, after delete record is: "\n" ${JSON.stringify(records)} `);
-    cleaResultFields();
+    clearResultFields();
 };
 
 function duplicateRecord(recordId) {
@@ -255,7 +257,7 @@ function duplicateRecord(recordId) {
         updateUI();
         log(`Is a duplicate of record ${recordId}`);
         log(`Current list of records, after duplicate record is: "\n" ${JSON.stringify(records)} `);
-        cleaResultFields();
+        clearResultFields();
     }
 }
 
@@ -293,7 +295,7 @@ function applyCorrection() {
     setTimeout(() => {
         correctionField.value = "";
     }, 1500);
-    cleaResultFields();
+    clearResultFields();
     updateUI();
 }
 
@@ -371,12 +373,9 @@ function resetAll() {
     priceResultBody.innerHTML = ``;
     document.body.classList.remove("withoutBackgroundImage");
     document.body.classList.add("withBackgroundImage");
-    // test
-
-
 }
 
-function cleaResultFields() {
+function clearResultFields() {
     palletPrice.value = "";
     unitPrice.value = "";
     palleteWarrant.value = "";
@@ -393,18 +392,21 @@ calculateBtn.addEventListener("click", calculateBricks);
 resetBtn.addEventListener("click", resetAll);
 materialSelect.addEventListener("change", () => {
     updateThicknessOptions();
-    cleaResultFields();
+    clearResultFields();
 }
 );
-thicknessSelect.addEventListener("change", cleaResultFields);
+thicknessSelect.addEventListener("change", clearResultFields);
 calculatePriceBtn.addEventListener("click", calculatePrice);
 heightInput.addEventListener("input", () => {
     document.body.classList.remove("withBackgroundImage");
     document.body.classList.add("withoutBackgroundImage");
+    resetBtn.classList.remove("isHidden");
 });
 widthInput.addEventListener("input", () => {
     document.body.classList.remove("withBackgroundImage");
     document.body.classList.add("withoutBackgroundImage");
+    resetBtn.classList.remove("isHidden");
+
 });
 
 //Init
